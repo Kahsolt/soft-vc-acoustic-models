@@ -20,26 +20,9 @@ from acoustic.utils import Metric, save_checkpoint, load_checkpoint, plot_spectr
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-########################################################################################
-# Define hyperparameters for training:
-########################################################################################
 
-# NOTE: these are default values and would be overwritten by `config.json`
-BATCH_SIZE = 32
-LEARNING_RATE = 4e-4
-BETAS = (0.8, 0.99)
-WEIGHT_DECAY = 1e-5
-STEPS = 80000
-LOG_INTERVAL = 5
-VALIDATION_INTERVAL = 1000
-CHECKPOINT_INTERVAL = 1000
-#BACKEND = "nccl"       # use this on Linux
-BACKEND = "gloo"        # use this on Windows
-INIT_METHOD = "tcp://localhost:54321"
-
-
-def train(rank, world_size, args):
-    dist.init_process_group(BACKEND, rank=rank, world_size=world_size, init_method=INIT_METHOD)
+def train(rank, world_size, args, hp):
+    dist.init_process_group(hp.BACKEND, rank=rank, world_size=world_size, init_method=hp.INIT_METHOD)
 
     ####################################################################################
     # Setup logging utilities:
@@ -69,9 +52,9 @@ def train(rank, world_size, args):
 
     optimizer = optim.AdamW(
         acoustic.parameters(),
-        lr=LEARNING_RATE,
-        betas=BETAS,
-        weight_decay=WEIGHT_DECAY,
+        lr=hp.LEARNING_RATE,
+        betas=hp.BETAS,
+        weight_decay=hp.WEIGHT_DECAY,
     )
 
     ####################################################################################
@@ -87,7 +70,7 @@ def train(rank, world_size, args):
     train_sampler = DistributedSampler(train_dataset, drop_last=True)
     train_loader = DataLoader(
         train_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=hp.BATCH_SIZE,
         sampler=train_sampler,
         collate_fn=train_dataset.pad_collate,
         num_workers=8,
@@ -129,7 +112,7 @@ def train(rank, world_size, args):
     # Start training loop
     # =================================================================================#
 
-    n_epochs = STEPS // len(train_loader) + 1
+    n_epochs = hp.STEPS // len(train_loader) + 1
     start_epoch = global_step // len(train_loader) + 1
 
     logger.info("**" * 40)
@@ -140,10 +123,21 @@ def train(rank, world_size, args):
     logger.info(f"CUDNN deterministic: {torch.backends.cudnn.deterministic}")
     logger.info(f"CUDNN benchmark: {torch.backends.cudnn.benchmark}")
     logger.info(f"# of GPUS: {torch.cuda.device_count()}")
-    logger.info(f"batch size: {BATCH_SIZE}")
+    logger.info(f"batch size: {hp.BATCH_SIZE}")
     logger.info(f"iterations per epoch: {len(train_loader)}")
     logger.info(f"# of epochs: {n_epochs}")
     logger.info(f"started at epoch: {start_epoch}")
+    logger.info(f"")
+    logger.info(f'BATCH_SIZE: {hp.BATCH_SIZE}')
+    logger.info(f'LEARNING_RATE: {hp.LEARNING_RATE}')
+    logger.info(f'BETAS: {hp.BETAS}')
+    logger.info(f'WEIGHT_DECAY: {hp.WEIGHT_DECAY}')
+    logger.info(f'STEPS: {hp.STEPS}')
+    logger.info(f'LOG_INTERVAL: {hp.LOG_INTERVAL}')
+    logger.info(f'VALIDATION_INTERVAL: {hp.VALIDATION_INTERVAL}')
+    logger.info(f'CHECKPOINT_INTERVAL: {hp.CHECKPOINT_INTERVAL}')
+    logger.info(f'BACKEND: {hp.BACKEND}')
+    logger.info(f'INIT_METHOD: {hp.INIT_METHOD}')
     logger.info("**" * 40 + "\n")
 
     average_loss    = Metric()
@@ -184,7 +178,7 @@ def train(rank, world_size, args):
             average_loss.update(loss.item())
             epoch_loss  .update(loss.item())
 
-            if rank == 0 and global_step % LOG_INTERVAL == 0:
+            if rank == 0 and global_step % hp.LOG_INTERVAL == 0:
                 writer.add_scalar("train/loss", average_loss.value, global_step)
                 average_loss.reset()
 
@@ -192,7 +186,7 @@ def train(rank, world_size, args):
             # Start validation loop
             # --------------------------------------------------------------------------#
 
-            if global_step % VALIDATION_INTERVAL == 0:
+            if global_step % hp.VALIDATION_INTERVAL == 0:
                 acoustic.eval()
                 validation_loss.reset()
 
@@ -224,7 +218,7 @@ def train(rank, world_size, args):
                     logger.info(f"valid -- epoch: {epoch}, loss: {validation_loss.value:.4f}")
 
                 new_best = best_loss > validation_loss.value
-                if new_best or global_step % CHECKPOINT_INTERVAL:
+                if new_best or global_step % hp.CHECKPOINT_INTERVAL:
                     if new_best:
                         logger.info("-------- new best model found!")
                         best_loss = validation_loss.value
@@ -270,14 +264,20 @@ if __name__ == "__main__":
     with open(args.config, 'r', encoding='utf-8') as fh:
         config = json.load(fh)
 
-        BATCH_SIZE          = config.get("batch_size",          BATCH_SIZE         )
-        LEARNING_RATE       = config.get("learning_rate",       LEARNING_RATE      )
-        BETAS               = config.get("betas",               BETAS              )
-        WEIGHT_DECAY        = config.get("weight_decay",        WEIGHT_DECAY       )
-        STEPS               = config.get("steps",               STEPS              )
-        LOG_INTERVAL        = config.get("log_interval",        LOG_INTERVAL       )
-        VALIDATION_INTERVAL = config.get("validation_interval", VALIDATION_INTERVAL)
-        CHECKPOINT_INTERVAL = config.get("checkpoint_interval", CHECKPOINT_INTERVAL)
+    # NOTE: these defaults may be overwritten by `config.json`
+    # borrow this seralizable `args` to hold hparams
+    hp = args
+    hp.BATCH_SIZE          = config.get("batch_size",          32         )
+    hp.LEARNING_RATE       = config.get("learning_rate",       4e-4       )
+    hp.BETAS               = config.get("betas",               (0.8, 0.99))
+    hp.WEIGHT_DECAY        = config.get("weight_decay",        1e-5       )
+    hp.STEPS               = config.get("steps",               80000      )
+    hp.LOG_INTERVAL        = config.get("log_interval",        5          )
+    hp.VALIDATION_INTERVAL = config.get("validation_interval", 1000       )
+    hp.CHECKPOINT_INTERVAL = config.get("checkpoint_interval", 1000       )
+    #args.BACKEND             = 'nccl'           # use this on Linux
+    hp.BACKEND             = 'gloo'           # use this on Windows
+    hp.INIT_METHOD         = 'tcp://localhost:54321'
 
     world_size = torch.cuda.device_count()
-    mp.spawn(train, args=(world_size, args), nprocs=world_size, join=True)
+    mp.spawn(train, args=(world_size, args, hp), nprocs=world_size, join=True)

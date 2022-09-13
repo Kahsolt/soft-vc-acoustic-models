@@ -10,13 +10,13 @@
 | 音色 | 声库名(vbank) | 说明 | 语料 | 训练 |
 | :-: | :-: | :-: | :-: | :-: |
 | LJSpeech  | ljspeech  | 英语女性                 | LJSpeech公开数据集           | 32k steps |
-| DataBaker | databaker | 汉语普通话女性            | DataBaker公开数据集          | 20k steps |
-| 鏡音レン  | len        | 日语男性少年 (Vocaloid)  | 鏡音レン合成歌曲              | ? steps |
-| 空詩音レミ| lemi       | 日语男性少年 (DeepVocal) | 空詩音レミ合成歌曲            | ? steps |
+| DataBaker | databaker | 汉语普通话女性            | DataBaker公开数据集          | 25k steps |
+| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 鏡音レン合成歌曲              | ? steps |
+| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 空詩音レミ合成歌曲            | ? steps |
 | はなinit  | hana       | 日语中性少年 (UTAU)      | はなinit合成歌曲+原始录音     | ? steps |
-| 旭音エマ  | ema        | 日语中性少年 (UTAU)      | 旭音エマ合成歌曲              | ? steps |
-| 狽音ウルシ| urushi     | 日语男性少年 (UTAU)      | 狽音ウルシ原始录音             | ? steps |
-| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | lansi2原始录音(有数据增强)    | ? steps |
+| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 旭音エマ合成歌曲              | ? steps |
+| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 狽音ウルシ原始录音            | ? steps |
+| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | lansi2原始录音(+数据增强)     | ? steps |
 | 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲         | ? steps |
 | 混杂      | mix        | 我擦我不好说             | 上述数据集的子集拼凑           | ? steps |
 
@@ -29,9 +29,9 @@
 Download and put the pretrained checkpoint file at path `out\<vbank>\model-best.pt` where `vbank` is name of the voicebank
 
 ```cmd
-python convert.py <vbank> <input>            => <input> can be both file or folder
-python convert.py ljspeech test\000001.wav   => gen\000001_ljspeech.wav
-python convert.py hana test                  => gen\*_hana.wav
+python infer.py <vbank> <input>            => <input> can be both file or folder
+python infer.py ljspeech test\000001.wav   => gen\000001_ljspeech.wav
+python infer.py hana test                  => gen\*_hana.wav
 ```
 
 converted outputs are in default generated under `gen` folder, named with suffix `<vbank>`
@@ -76,7 +76,7 @@ y_hat = target.squeeze().cpu().numpy()
 wavfile.write('converted.wav', 16000, y_hat)
 ```
 
-see more details in `demo.ipynb` and `convert.py`
+see more details in `demo.ipynb` and `infer.py`
 
 ⚪ Train your own voice bank
 
@@ -90,7 +90,8 @@ Note that **each acoustic model** is typically treated as **one timbre**, so tra
   - `make dirs VBANK=<vbank> WAVPATH=<wavpath>` creates necessary folder hierachy and soft-links
   - `make units VBANK=<vbank>` encodes wavforms to hubert's hidden-units
   - `make mels VBANK=<vbank>` transforms wavforms to log-mel spectrograms 
-  - `make train VBANK=<vbank>` trains the acoustic model with paired data (units, mels)
+  - `make train VBANK=<vbank>` trains the acoustic model with paired data (units, mels), default valid-train split ratio is `0.1`
+  - `make train_resume VBANK=<vbank>` resumes training on the saved `model-best.pt`
 
 Note that preprocessed features are generated in `data\<vbank>\*`, while model checkpoints are saved in `out\<vbank>`
 

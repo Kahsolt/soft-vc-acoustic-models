@@ -56,7 +56,7 @@ def preprocess_dataset(args):
   print(f"Extracting features for {args.in_dir}")
   for in_path in args.in_dir.rglob("*.wav"):
     relative_path = in_path.relative_to(args.in_dir)
-    out_path = args.out_dir / relative_path.with_suffix("")
+    out_path = args.out_dir / relative_path
     out_path.parent.mkdir(parents=True, exist_ok=True)
     futures.append(executor.submit(process_wav, in_path, out_path))
 

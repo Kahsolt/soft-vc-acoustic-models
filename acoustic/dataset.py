@@ -20,7 +20,7 @@ class MelDataset(Dataset):
         if train: fps = fps[cp:]
         else:     fps = fps[:cp]
 
-        self.metadata = [path.relative_to(self.mels_dir).with_suffix("") for path in fps]
+        self.metadata = [path.relative_to(self.mels_dir) for path in fps]
 
     def __len__(self):
         return len(self.metadata)

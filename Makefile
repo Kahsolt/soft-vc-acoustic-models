@@ -12,6 +12,7 @@ all:
 	@echo "   make units VBANK=<vbank>"
 	@echo "   make mels  VBANK=<vbank>"
 	@echo "   make train VBANK=<vbank>"
+	@echo "   make train_resume VBANK=<vbank>"
 
 dirs: _chk_param_vbank _chk_wavpath_exist
 	mkdir $(DATA_PATH)
@@ -37,6 +38,13 @@ train: _chk_param_vbank _chk_cfgfile_exist
 	  $(DATA_PATH) \
 	  $(OUT_PATH) \
 	  --config $(CONFIG_PATH)
+
+train_resume: _chk_param_vbank _chk_cfgfile_exist
+	$(PYTHON_BIN) train.py \
+	  $(DATA_PATH) \
+	  $(OUT_PATH) \
+	  --config $(CONFIG_PATH) \
+	  --resume $(OUT_PATH)\model-best.pt
 
 
 _chk_param_vbank:
