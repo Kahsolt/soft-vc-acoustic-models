@@ -8,15 +8,17 @@ SET PYTHON_BIN=python
 
 SET VBANK=%1
 SET WAVPATH=%2
+SET CONFIG=%3
 IF "%VBANK%"=="" GOTO HELP
 IF "%WAVPATH%"=="" GOTO HELP
+IF "%CONFIG%"=="" SET CONFIG=default
 
 ECHO ^>^> [0/4] making voicebank `%VBANK%` from "%WAVPATH%"
 ECHO.
 
 SET DATA_PATH=data\%VBANK%
 SET OUT_PATH=out\%VBANK%
-SET CONFIG_PATH=configs\%VBANK%.json
+SET CONFIG_PATH=configs\%CONFIG%.json
 IF NOT EXIST %WAVPATH% (
   ECHO ^<^< [Error] wavpath "%WAVPATH%" does not exist!
   ECHO.
@@ -58,7 +60,8 @@ GOTO EOF
 
 
 :HELP
-ECHO Usage: %0 ^<vbank^> ^<wavpath^>
-ECHO   vbank      voice bank name, according to the `configs` folder
+ECHO Usage: %0 ^<vbank^> ^<wavpath^> ^[config^]
+ECHO   vbank      voice bank name
 ECHO   wavpath    folder path containing *.wav files
+ECHO   config     config name (default: "default")
 ECHO.

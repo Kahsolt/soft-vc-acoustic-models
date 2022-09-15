@@ -2,8 +2,6 @@
 .vscode
 # wav & processed files
 data/
-# generated converted files
-gen/
 # model chpt & logs
 out/
 # my todolist

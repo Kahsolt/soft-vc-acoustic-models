@@ -97,7 +97,7 @@ def train(rank, world_size, args, hp):
     # Load checkpoint if args.resume is set
     ####################################################################################
 
-    if args.resume is not None:
+    if args.resume:
         global_step, best_loss = load_checkpoint(
             load_path=args.resume,
             acoustic=acoustic,
@@ -117,11 +117,12 @@ def train(rank, world_size, args, hp):
 
     logger.info("**" * 40)
     logger.info(f"PyTorch version: {torch.__version__}")
-    logger.info(f"CUDA version: {torch.version.cuda}")
-    logger.info(f"CUDNN version: {torch.backends.cudnn.version()}")
-    logger.info(f"CUDNN enabled: {torch.backends.cudnn.enabled}")
-    logger.info(f"CUDNN deterministic: {torch.backends.cudnn.deterministic}")
-    logger.info(f"CUDNN benchmark: {torch.backends.cudnn.benchmark}")
+    if torch.cuda.is_available():
+        logger.info(f"CUDA version: {torch.version.cuda}")
+        logger.info(f"CUDNN version: {torch.backends.cudnn.version()}")
+        logger.info(f"CUDNN enabled: {torch.backends.cudnn.enabled}")
+        logger.info(f"CUDNN deterministic: {torch.backends.cudnn.deterministic}")
+        logger.info(f"CUDNN benchmark: {torch.backends.cudnn.benchmark}")
     logger.info(f"# of GPUS: {torch.cuda.device_count()}")
     logger.info(f"batch size: {hp.BATCH_SIZE}")
     logger.info(f"iterations per epoch: {len(train_loader)}")
@@ -203,8 +204,9 @@ def train(rank, world_size, args, hp):
 
                     validation_loss.update(loss.item())
 
-                    if rank == 0 and i < 4:
-                        writer.add_figure(f"original/mel_{i}",  plot_spectrogram(mels .squeeze().transpose(0, 1).cpu().numpy()), global_step)
+                    if rank == 0 and i < 4:     # display first three samples
+                        if global_step == hp.VALIDATION_INTERVAL:     # if the firts time
+                            writer.add_figure(f"original/mel_{i}", plot_spectrogram(mels .squeeze().transpose(0, 1).cpu().numpy()), global_step)
                         writer.add_figure(f"generated/mel_{i}", plot_spectrogram(mels_.squeeze().transpose(0, 1).cpu().numpy()), global_step)
 
                 acoustic.train()

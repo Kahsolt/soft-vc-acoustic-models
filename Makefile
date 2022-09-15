@@ -2,17 +2,21 @@ PYTHON_BIN=python
 
 DATA_PATH=data\$(VBANK)
 OUT_PATH=out\$(VBANK)
-CONFIG_PATH=configs\$(VBANK).json
+ifeq ($(CONFIG),)
+	CONFIG_PATH=configs\default.json
+else
+	CONFIG_PATH=configs\$(CONFIG).json
+endif
 
-.PHONY: all dirs units mels train _chk_param_vbank _chk_wavpath_exist _chk_cfgfile_exist
+.PHONY: all dirs units mels train train_resume stat _chk_param_vbank _chk_wavpath_exist _chk_cfgfile_exist
 
 all:
 	@echo "Usage:"
 	@echo "   make dirs  VBANK=<vbank> WAVPATH=<wavpath>"
 	@echo "   make units VBANK=<vbank>"
 	@echo "   make mels  VBANK=<vbank>"
-	@echo "   make train VBANK=<vbank>"
-	@echo "   make train_resume VBANK=<vbank>"
+	@echo "   make train VBANK=<vbank> CONFIG=<config> RESUME=[resume]"
+	@echo "   make train_resume VBANK=<vbank> CONFIG=<config>"
 
 dirs: _chk_param_vbank _chk_wavpath_exist
 	mkdir $(DATA_PATH)
@@ -34,10 +38,18 @@ mels: _chk_param_vbank
 	  $(DATA_PATH)\mels
 
 train: _chk_param_vbank _chk_cfgfile_exist
+ifeq ($(RESUME),)
 	$(PYTHON_BIN) train.py \
 	  $(DATA_PATH) \
 	  $(OUT_PATH) \
 	  --config $(CONFIG_PATH)
+else
+	$(PYTHON_BIN) train.py \
+	  $(DATA_PATH) \
+	  $(OUT_PATH) \
+	  --config $(CONFIG_PATH) \
+		--resume $(RESUME)
+endif
 
 train_resume: _chk_param_vbank _chk_cfgfile_exist
 	$(PYTHON_BIN) train.py \
@@ -45,6 +57,9 @@ train_resume: _chk_param_vbank _chk_cfgfile_exist
 	  $(OUT_PATH) \
 	  --config $(CONFIG_PATH) \
 	  --resume $(OUT_PATH)\model-best.pt
+
+stats: _chk_param_vbank
+	tensorboard --logdir out\$(VBANK)\logs
 
 
 _chk_param_vbank:

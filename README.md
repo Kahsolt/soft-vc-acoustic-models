@@ -1,24 +1,42 @@
 # soft-vc-acoustic-models
 
-    使用 Soft-VC 制作应用时只需要重新训练自己的 Acoustic Model 就行了
-    本仓库提供一些训练好的音色库，基础代码由官方soft-vc的四个仓库删减修改整合而来
+    Provides several pretrained acoustic models for Soft-VC, together with scripts for conveniently training your own voice bank.
 
 ----
 
+使用 [Soft-VC](https://github.com/bshall/soft-vc) 制作变声器应用时只需要重新训练自己的声学模型 [Acoustic Model](https://github.com/bshall/acoustic-model) 就行了  
+本仓库提供一些训练好的音色库(都并不好用！！)，但借助整合脚本可以很方便地训练自己的声学模型 :)  
+基础代码由官方soft-vc的四个仓库删减修改整合而来  
+
+
 ### Voice Banks
 
-| 音色 | 声库名(vbank) | 说明 | 语料 | 训练 |
-| :-: | :-: | :-: | :-: | :-: |
-| LJSpeech  | ljspeech  | 英语女性                 | LJSpeech公开数据集           | 32k steps |
-| DataBaker | databaker | 汉语普通话女性            | DataBaker公开数据集          | 25k steps |
-| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 鏡音レン合成歌曲              | ? steps |
-| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 空詩音レミ合成歌曲            | ? steps |
-| はなinit  | hana       | 日语中性少年 (UTAU)      | はなinit合成歌曲+原始录音     | ? steps |
-| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 旭音エマ合成歌曲              | ? steps |
-| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 狽音ウルシ原始录音            | ? steps |
-| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | lansi2原始录音(+数据增强)     | ? steps |
-| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲         | ? steps |
-| 混杂      | mix        | 我擦我不好说             | 上述数据集的子集拼凑           | ? steps |
+| 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 检查点 |
+| :-: | :-: | :-: | :-: | :-: | :-: |
+| LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps |
+| DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps |
+| 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | ? steps |
+| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | ? steps |
+| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | ? steps |
+| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | ? steps |
+| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | ? steps |
+| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | ? steps |
+| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | ? steps |
+| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps |
+| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |
+| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |
+| 空(旅行者) | aether    | 日语男性少年             | 游戏内语音(原神)              |  | ? steps |
+| 派蒙      | paimon     | 日语女性幼儿             | 游戏内语音(原神)              |  | ? steps |
+| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | ? steps |
+| 混杂      | mix        | 我擦我不好说             | 上述数据集的随机子集拼凑      |  | ? steps |
+
+⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
+⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
+
+Model checkpoints could be downloaded here: [TODO: upload to cloud disk](http://no.where.to.go)
+
+ℹ️ **Note: not all vbanks are pleasing due to very limited training data**, please check the audio samples in `index.html` for a comprehensive understanding.  
+For discussion on how many data is necessarily needed to train, refer to this repo: [soft-vc-acoustic-model-ablation-study](https://github.com/Kahsolt/soft-vc-acoustic-model-ablation-study)
 
 ### Quick Start
 
@@ -80,20 +98,66 @@ see more details in `demo.ipynb` and `infer.py`
 
 ⚪ Train your own voice bank
 
-Note that **each acoustic model** is typically treated as **one timbre**, so training on a multi-speaker dataset might probably get a confused timbre (just see the `mix` vbank). **Hence I will try to develop global-conditioned multi-timbre acoustic model in the near future :)**
+ℹ️ Note that **each acoustic model** is typically treated as **one timbre**, so training on a multi-speaker dataset might probably get a confused timbre (just see the `mix` vbank). **Hence I will try to develop global-conditioned multi-timbre acoustic model in the near future :)**
 
 1. prepare a folder containing \*.wav files (currently \*.mp3 not supported), aka. `wavpath`
-2. make a config file `<vbank>.json` under `configs` folder where `vbank` is the name of your voice bank (refer to `configs\_template.json`)
+2. (optional) create a config file `<config>.json` under `configs` folder (refer to `configs\default.json` which is defaultly used)
 3. install dependencies `pip install -r requirements.txt`
-4. run bundled script `make_all.cmd <vbank> <wavpath>` (e.g. `make_all.cmd ljspeech C:\LJSpeech-1.1\wavs`) for full preprocess & train routine, then wait for 2000 years over :laughing:
-  - if you got any error at midway, or just wants to operate step by step, refer to four steps in `Makefile`
-  - `make dirs VBANK=<vbank> WAVPATH=<wavpath>` creates necessary folder hierachy and soft-links
-  - `make units VBANK=<vbank>` encodes wavforms to hubert's hidden-units
-  - `make mels VBANK=<vbank>` transforms wavforms to log-mel spectrograms 
-  - `make train VBANK=<vbank>` trains the acoustic model with paired data (units, mels), default valid-train split ratio is `0.1`
-  - `make train_resume VBANK=<vbank>` resumes training on the saved `model-best.pt`
+4. run bundled script `make_vbank.cmd <vbank> <wavpath> [config]` (e.g. `make_vbank.cmd ljspeech C:\LJSpeech-1.1\wavs default`) for full preprocess & train routine, then wait for 2000 years over :laughing:
+  - or use the two-stage separated scripts, so that you could repeat and resume training:
+    - `make_preprocess.cmd <vbank> <wavpath>`
+    - `make_train.cmd <vbank> [config] [resume]`
+  - or if you wants to perform step by step, refer to recipes in `Makefile`:
+    - `make dirs VBANK=<vbank> WAVPATH=<wavpath>` creates necessary folder hierachy and soft-links
+    - `make units VBANK=<vbank>` encodes wavforms to hubert's hidden-units
+    - `make mels VBANK=<vbank>` transforms wavforms to log-mel spectrograms 
+    - `make train VBANK=<vbank> CONFIG=[config]` trains the acoustic model with paired data (unit, mel)
+    - `make train_resume VBANK=<vbank> CONFIG=[config]` resumes training on the saved `model-best.pt`
+5. you can launch TensorBoard summary by `make stats VBANK=<vbank>`
 
 Note that preprocessed features are generated in `data\<vbank>\*`, while model checkpoints are saved in `out\<vbank>`
+
+
+### Project Layout
+
+```
+.
+├── thesis/                   // 参考用原始论文
+├── acoustic/                 // 声学模型代码
+├── configs/                  // 训练用超参数配置
+│   ├── default.json
+│   ├── <config>.json
+│   └── ...
+├── data/                     // 训练用数据文件
+│   ├── <vbank>/
+│   │   ├── wavs/             // 指向<wavpath>的目录软连接 (由mklink产生)
+│   │   ├── units/            // preprocess产生的HuBERT特征
+│   │   └── mels/             // preprocess产生的Mel谱特征
+│   └── ...
+├── out/                      // 模型权重保存点 + 日志统计
+│   ├── <vbank>/
+│   │   ├── logs/             // 日志(`*.log`) + TFBoard(`events.out.tfevents.*`)
+│   │   ├── model-best.pt     // 最优检查点
+│   │   ├── model-<steps>.pt  // 中间检查点
+│   └── ...
+├── preprocess.py             // 数据预处理代码
+├── train.py                  // 训练代码
+├── infer.py                  // 合成代码 (Commandline API)
+├── demo.ipynb                // 编程API示例 (Programmatic API)
+|── ...
+├── make_vbank.cmd            // 自定义语音库完整制作脚本 (全部，步骤1~3)
+├── make_train.cmd            // 自定义语音库预处理脚本 (仅预处理，步骤1~3)
+├── make_preprocess.cmd       // 自定义语音库训练脚本 (仅训练，步骤4)
+├── Makefile                  // 自定义语音库任务脚本 (分步骤)
+|── ...
+├── test/                     // demo源数据集
+├── gen/                      // demo生成数据集 (demo源数据集在demo声库上产生的转换结果)
+├── index.html                // demo列表页面
+├── make_index.py             // demo页面生成脚本 (产生index.html)
+└── make_infer_test.cmd       // demo生成数据集生成脚本 (产生gen/)
+```
+
+ℹ️ These developed scripts and tools are targeted mainly for **Windows** platform, if you work on Linux or Mac, you possibly need to modify on your own :(
 
 ### References
 

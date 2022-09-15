@@ -1,0 +1,225 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Test Soft-VC Voice Conversion</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<table >
+<tr>
+  <td><div><audio src="test/LJ001-0001.wav" controls></audio><p>LJ001-0001 => original</p></div></td>
+  <td><p>missing test.gen/LJ001-0001_ljspeech.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_databaker.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_sou.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_len.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_lemi.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_hana.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_ema.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_urushi.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_lansi.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_piano.wav</p></td>
+  <td><p>missing test.gen/LJ001-0001_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/000001.wav" controls></audio><p>000001 => original</p></div></td>
+  <td><p>missing test.gen/000001_ljspeech.wav</p></td>
+  <td><p>missing test.gen/000001_databaker.wav</p></td>
+  <td><p>missing test.gen/000001_sou.wav</p></td>
+  <td><p>missing test.gen/000001_len.wav</p></td>
+  <td><p>missing test.gen/000001_lemi.wav</p></td>
+  <td><p>missing test.gen/000001_hana.wav</p></td>
+  <td><p>missing test.gen/000001_ema.wav</p></td>
+  <td><p>missing test.gen/000001_urushi.wav</p></td>
+  <td><p>missing test.gen/000001_lansi.wav</p></td>
+  <td><p>missing test.gen/000001_piano.wav</p></td>
+  <td><p>missing test.gen/000001_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/BAC009S0724W0121.wav" controls></audio><p>BAC009S0724W0121 => original</p></div></td>
+  <td><p>missing test.gen/BAC009S0724W0121_ljspeech.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_databaker.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_sou.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_len.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_lemi.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_hana.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_ema.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_urushi.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_lansi.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_piano.wav</p></td>
+  <td><p>missing test.gen/BAC009S0724W0121_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/SSB00050353.wav" controls></audio><p>SSB00050353 => original</p></div></td>
+  <td><p>missing test.gen/SSB00050353_ljspeech.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_databaker.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_sou.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_len.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_lemi.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_hana.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_ema.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_urushi.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_lansi.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_piano.wav</p></td>
+  <td><p>missing test.gen/SSB00050353_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/000df995-51ab-4a1d-852c-c288e0300bf7.wav" controls></audio><p>000df995-51ab-4a1d-852c-c288e0300bf7 => original</p></div></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_ljspeech.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_databaker.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_sou.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_len.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_lemi.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_hana.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_ema.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_urushi.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_lansi.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_piano.wav</p></td>
+  <td><p>missing test.gen/000df995-51ab-4a1d-852c-c288e0300bf7_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/common_voice_ab_19904194.wav" controls></audio><p>common_voice_ab_19904194 => original</p></div></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_ljspeech.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_databaker.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_sou.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_len.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_lemi.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_hana.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_ema.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_urushi.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_lansi.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_piano.wav</p></td>
+  <td><p>missing test.gen/common_voice_ab_19904194_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/_べべぶぼべぼぼ.wav" controls></audio><p>_べべぶぼべぼぼ => original</p></div></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_ljspeech.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_databaker.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_sou.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_len.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_lemi.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_hana.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_ema.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_urushi.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_lansi.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_piano.wav</p></td>
+  <td><p>missing test.gen/_べべぶぼべぼぼ_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/D#4_しゅしゅししょしゃしょし.wav" controls></audio><p>D#4_しゅしゅししょしゃしょし => original</p></div></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_ljspeech.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_databaker.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_sou.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_len.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_lemi.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_hana.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_ema.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_urushi.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_lansi.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_piano.wav</p></td>
+  <td><p>missing test.gen/D#4_しゅしゅししょしゃしょし_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/_きゅんきゅきゅきぇきゅきょきゅ.wav" controls></audio><p>_きゅんきゅきゅきぇきゅきょきゅ => original</p></div></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_ljspeech.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_databaker.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_sou.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_len.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_lemi.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_hana.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_ema.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_urushi.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_lansi.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_piano.wav</p></td>
+  <td><p>missing test.gen/_きゅんきゅきゅきぇきゅきょきゅ_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/kan_kan_kan.wav" controls></audio><p>kan_kan_kan => original</p></div></td>
+  <td><p>missing test.gen/kan_kan_kan_ljspeech.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_databaker.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_sou.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_len.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_lemi.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_hana.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_ema.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_urushi.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_lansi.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_piano.wav</p></td>
+  <td><p>missing test.gen/kan_kan_kan_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/[Hana] FLOWER_1_歌声-トラック_tune-8.wav" controls></audio><p>[Hana] FLOWER_1_歌声-トラック_tune-8 => original</p></div></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_ljspeech.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_databaker.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_sou.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_len.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_lemi.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_hana.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_ema.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_urushi.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_lansi.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_piano.wav</p></td>
+  <td><p>missing test.gen/[Hana] FLOWER_1_歌声-トラック_tune-8_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/[Ema] さがり花_1_歌声-トラック-6.wav" controls></audio><p>[Ema] さがり花_1_歌声-トラック-6 => original</p></div></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_ljspeech.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_databaker.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_sou.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_len.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_lemi.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_hana.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_ema.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_urushi.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_lansi.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_piano.wav</p></td>
+  <td><p>missing test.gen/[Ema] さがり花_1_歌声-トラック-6_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/[Len] テロル_vocal-4.wav" controls></audio><p>[Len] テロル_vocal-4 => original</p></div></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_ljspeech.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_databaker.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_sou.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_len.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_lemi.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_hana.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_ema.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_urushi.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_lansi.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_piano.wav</p></td>
+  <td><p>missing test.gen/[Len] テロル_vocal-4_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/Ⅱ 小快板-14.wav" controls></audio><p>Ⅱ 小快板-14 => original</p></div></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_ljspeech.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_databaker.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_sou.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_len.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_lemi.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_hana.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_ema.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_urushi.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_lansi.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_piano.wav</p></td>
+  <td><p>missing test.gen/Ⅱ 小快板-14_mix.wav</p></td>
+</tr>
+<tr>
+  <td><div><audio src="test/十二音小夜曲-10.wav" controls></audio><p>十二音小夜曲-10 => original</p></div></td>
+  <td><p>missing test.gen/十二音小夜曲-10_ljspeech.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_databaker.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_sou.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_len.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_lemi.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_hana.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_ema.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_urushi.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_lansi.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_piano.wav</p></td>
+  <td><p>missing test.gen/十二音小夜曲-10_mix.wav</p></td>
+</tr>
+</table>
+</body>
+</html>
