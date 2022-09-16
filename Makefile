@@ -27,15 +27,13 @@ dirs: _chk_param_vbank _chk_wavpath_exist
 
 units: _chk_param_vbank
 	$(PYTHON_BIN) preprocess.py \
-	  --encode \
-	  $(DATA_PATH)\wavs \
-	  $(DATA_PATH)\units
+	  $(VBANK) \
+	  --encode
 
 mels: _chk_param_vbank
 	$(PYTHON_BIN) preprocess.py \
-	  --melspec \
-	  $(DATA_PATH)\wavs \
-	  $(DATA_PATH)\mels
+	  $(VBANK) \
+	  --melspec
 
 train: _chk_param_vbank _chk_cfgfile_exist
 ifeq ($(RESUME),)

@@ -27,7 +27,7 @@ def convert(args):
     wav_fps = [args.input]
   else:
     wav_fps = [os.path.join(args.input, fn) for fn in os.listdir(args.input)]
-  os.makedirs(args.out_dp, exist_ok=True)
+  os.makedirs(args.out_path, exist_ok=True)
   
   SAMPLE_RATE = 16000
   with torch.inference_mode():
@@ -43,7 +43,7 @@ def convert(args):
 
         y_hat = target.squeeze().cpu().numpy()
         name, ext = os.path.splitext(os.path.basename(wav_fp))
-        save_fp = os.path.join(args.out_dp, f'{name}_{args.vbank}{ext}')
+        save_fp = os.path.join(args.out_path, f'{name}_{args.vbank}{ext}')
         wavfile.write(save_fp, SAMPLE_RATE, y_hat)
         print(f'>> {save_fp}')
       except Exception as e:
@@ -58,7 +58,7 @@ if __name__ == '__main__':
   parser = ArgumentParser()
   parser.add_argument("vbank", metavar='vbank', default='ljspeech', choices=VBANKS, help='voice bank name')
   parser.add_argument("input", metavar='input', help='input file or folder for conversion')
-  parser.add_argument("--out_dp", default='gen', help='output folder for converted wavfiles')
+  parser.add_argument("--out_path", default='gen', help='output folder for converted wavfiles')
   args = parser.parse_args()
 
   convert(args)

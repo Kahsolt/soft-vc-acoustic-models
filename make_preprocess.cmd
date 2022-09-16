@@ -30,13 +30,13 @@ ECHO.
 
 ECHO ^>^> [2/4] prepare hubert-unit ^at "%DATA_PATH%\units"
 MKDIR %DATA_PATH%\units
-%PYTHON_BIN% preprocess.py --encode %DATA_PATH%\wavs %DATA_PATH%\units
+%PYTHON_BIN% preprocess.py %VBANK% --encode
 ECHO.
 IF ERRORLEVEL 1 EXIT /B -1
 
 ECHO ^>^> [3/4] prepare melspec ^at "%DATA_PATH%\mels"
 MKDIR %DATA_PATH%\mels
-%PYTHON_BIN% preprocess.py --melspec %DATA_PATH%\wavs %DATA_PATH%\mels
+%PYTHON_BIN% preprocess.py %VBANK% --melspec
 ECHO.
 IF ERRORLEVEL 1 EXIT /B -1
 

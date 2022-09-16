@@ -257,7 +257,7 @@ if __name__ == "__main__":
     VBANKS = os.listdir('data')   # where train data locates
 
     parser = ArgumentParser()
-    parser.add_argument("vbank", metavar='vbank', default='ljspeech', choices=VBANKS, help='voice bank name')
+    parser.add_argument("vbank", metavar='vbank', choices=VBANKS, help='voice bank name')
     parser.add_argument("--config", required=True, type=Path)
     parser.add_argument("--resume", help="path to the checkpoint file to resume from", type=Path)
     parser.add_argument("--split_ratio", default=0.1, help="dataset valid/train split ratio")

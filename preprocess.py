@@ -23,22 +23,22 @@ def encode_dataset(args):
   print(f"Loading pretrained hubert checkpoint")
   hubert = torch.hub.load("bshall/hubert:main", "hubert_soft").to(device)
 
-  print(f"Encoding dataset at {args.in_dir}")
+  print(f"Encoding dataset at {args.wav_path}")
   with torch.inference_mode():
-    for in_path in tqdm(list(args.in_dir.rglob("*.wav"))):
-      wav, sr = torchaudio.load(in_path)
+    for wav_fp in tqdm(list(args.wav_path.rglob("*.wav"))):
+      wav, sr = torchaudio.load(wav_fp)
       wav = resample(wav, sr, SAMPLE_RATE)
       wav = wav.unsqueeze(0).to(device)
 
       units = hubert.units(wav)
 
-      out_path = args.out_dir / in_path.relative_to(args.in_dir)
+      out_path = args.out_path / wav_fp.relative_to(args.wav_path)
       out_path.parent.mkdir(parents=True, exist_ok=True)
       np.save(out_path.with_suffix(".npy"), units.squeeze().cpu().numpy())
 
 
-def process_wav(in_path, out_path):
-  wav, sr = torchaudio.load(in_path)
+def process_wav(wav_fp, out_path):
+  wav, sr = torchaudio.load(wav_fp)
   wav = resample(wav, sr, SAMPLE_RATE)
   wav = wav.unsqueeze(0)
 
@@ -49,16 +49,16 @@ def process_wav(in_path, out_path):
 
 
 def preprocess_dataset(args):
-  args.out_dir.mkdir(parents=True, exist_ok=True)
+  args.out_path.mkdir(parents=True, exist_ok=True)
 
   futures = []
   executor = ProcessPoolExecutor(max_workers=cpu_count())
-  print(f"Extracting features for {args.in_dir}")
-  for in_path in args.in_dir.rglob("*.wav"):
-    relative_path = in_path.relative_to(args.in_dir)
-    out_path = args.out_dir / relative_path
+  print(f"Extracting features for {args.wav_path}")
+  for wav_fp in args.wav_path.rglob("*.wav"):
+    relative_path = wav_fp.relative_to(args.wav_path)
+    out_path = args.out_path / relative_path
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    futures.append(executor.submit(process_wav, in_path, out_path))
+    futures.append(executor.submit(process_wav, wav_fp, out_path))
 
   results = [future.result() for future in tqdm(futures)]
 
@@ -69,13 +69,21 @@ def preprocess_dataset(args):
 
 
 if __name__ == "__main__":
+  VBANKS = os.listdir('data')   # where train data locates
+
   parser = ArgumentParser()
-  parser.add_argument("--encode", action='store_true')
-  parser.add_argument("--melspec", action='store_true')
-  parser.add_argument("in_dir", metavar="in-dir", help="path to the dataset directory", type=Path)
-  parser.add_argument("out_dir", metavar="out-dir", help="path to the output directory", type=Path)
+  parser.add_argument("vbank", metavar='vbank', choices=VBANKS, help='voice bank name')
+  parser.add_argument("--encode", action='store_true', help='generated HuBERT hidden-units')
+  parser.add_argument("--melspec", action='store_true', help='generated logscale-melspec')
   args = parser.parse_args()
 
-  if   args.encode:      encode_dataset(args)
-  elif args.melspec: preprocess_dataset(args)
-  else: raise('either --encode, --melspec must be set')
+  args.wav_path = Path('data') / args.vbank / 'wavs'
+
+  if args.encode:
+    args.out_path = Path('data') / args.vbank / 'units'
+    encode_dataset(args)
+  elif args.melspec:
+    args.out_path = Path('data') / args.vbank / 'mels'
+    preprocess_dataset(args)
+  else:
+    raise('either --encode, --melspec must be set')
