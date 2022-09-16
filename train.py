@@ -1,6 +1,7 @@
+import os
 import json
-import argparse
 import logging
+from argparse import ArgumentParser
 from pathlib import Path
 
 import torch
@@ -28,12 +29,12 @@ def train(rank, world_size, args, hp):
     # Setup logging utilities:
     ####################################################################################
 
-    log_dir = args.checkpoint_dir / "logs"
+    log_dir = args.log_path / "logs"
     log_dir.mkdir(exist_ok=True, parents=True)
 
     if rank == 0:
         logger.setLevel(logging.INFO)
-        handler = logging.FileHandler(log_dir / f"{args.checkpoint_dir.stem}.log")
+        handler = logging.FileHandler(log_dir / f"{args.log_path.stem}.log")
         handler.setLevel(logging.INFO)
         formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", datefmt="%m/%d/%Y %I:%M:%S")
         handler.setFormatter(formatter)
@@ -55,6 +56,7 @@ def train(rank, world_size, args, hp):
         lr=hp.LEARNING_RATE,
         betas=hp.BETAS,
         weight_decay=hp.WEIGHT_DECAY,
+        capturable=True,
     )
 
     ####################################################################################
@@ -62,9 +64,8 @@ def train(rank, world_size, args, hp):
     ####################################################################################
 
     train_dataset = MelDataset(
-        root=args.dataset_dir,
+        root=args.data_path,
         train=True,
-        discrete=args.discrete,
         split_ratio=args.split_ratio,
     )
     train_sampler = DistributedSampler(train_dataset, drop_last=True)
@@ -80,9 +81,8 @@ def train(rank, world_size, args, hp):
     )
 
     validation_dataset = MelDataset(
-        root=args.dataset_dir,
+        root=args.data_path,
         train=False,
-        discrete=args.discrete,
         split_ratio=args.split_ratio,
     )
     validation_loader = DataLoader(
@@ -227,7 +227,7 @@ def train(rank, world_size, args, hp):
 
                     if rank == 0:
                         save_checkpoint(
-                            checkpoint_dir=args.checkpoint_dir,
+                            log_path=args.log_path,
                             acoustic=acoustic,
                             optimizer=optimizer,
                             step=global_step,
@@ -254,14 +254,17 @@ def train(rank, world_size, args, hp):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train the acoustic model.")
-    parser.add_argument("dataset_dir", metavar="dataset-dir", help="path to the data directory.", type=Path)
-    parser.add_argument("checkpoint_dir", metavar="checkpoint-dir", help="path to the checkpoint directory.", type=Path)
+    VBANKS = os.listdir('data')   # where train data locates
+
+    parser = ArgumentParser()
+    parser.add_argument("vbank", metavar='vbank', default='ljspeech', choices=VBANKS, help='voice bank name')
     parser.add_argument("--config", required=True, type=Path)
-    parser.add_argument("--resume", help="path to the checkpoint to resume from.", type=Path)
-    parser.add_argument("--discrete", action="store_true", help="use discrete units.")
-    parser.add_argument("--split_ratio", default=0.1, help="dataset valid/train split ratio.")
+    parser.add_argument("--resume", help="path to the checkpoint file to resume from", type=Path)
+    parser.add_argument("--split_ratio", default=0.1, help="dataset valid/train split ratio")
     args = parser.parse_args()
+
+    args.data_path = Path('data') / args.vbank
+    args.log_path  = Path('out')  / args.vbank
 
     with open(args.config, 'r', encoding='utf-8') as fh:
         config = json.load(fh)

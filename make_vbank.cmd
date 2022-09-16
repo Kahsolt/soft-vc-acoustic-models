@@ -50,7 +50,7 @@ IF ERRORLEVEL 1 EXIT /B -1
 
 ECHO ^>^> [4/4] training acoustic model to "%OUT_PATH%" (use config "%CONFIG_PATH%")
 MKDIR %OUT_PATH%
-%PYTHON_BIN% train.py %DATA_PATH% %OUT_PATH% --config %CONFIG_PATH%
+%PYTHON_BIN% train.py %VBANK% --config %CONFIG_PATH%
 ECHO.
 IF ERRORLEVEL 1 EXIT /B -1
 

@@ -56,8 +56,8 @@ if __name__ == '__main__':
   VBANKS = os.listdir('out')   # where ckpt locates
 
   parser = ArgumentParser()
-  parser.add_argument("vbank", default='ljspeech', choices=VBANKS, help='voice bank name')
-  parser.add_argument("input", help='input file or folder for conversion')
+  parser.add_argument("vbank", metavar='vbank', default='ljspeech', choices=VBANKS, help='voice bank name')
+  parser.add_argument("input", metavar='input', help='input file or folder for conversion')
   parser.add_argument("--out_dp", default='gen', help='output folder for converted wavfiles')
   args = parser.parse_args()
 

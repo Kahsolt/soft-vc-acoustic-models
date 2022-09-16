@@ -11,24 +11,23 @@
 
 ### Voice Banks
 
-| 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 检查点 |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps |
-| DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps |
-| 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | ? steps |
-| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | ? steps |
-| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | ? steps |
-| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | ? steps |
-| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | ? steps |
-| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | ? steps |
-| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | ? steps |
-| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps |
-| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |
-| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |
-| 空(旅行者) | aether    | 日语男性少年             | 游戏内语音(原神)              |  | ? steps |
-| 派蒙      | paimon     | 日语女性幼儿             | 游戏内语音(原神)              |  | ? steps |
-| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | ? steps |
-| 混杂      | mix        | 我擦我不好说             | 上述数据集的随机子集拼凑      |  | ? steps |
+| 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 检查点 | 听感状态 |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps | 可用 |
+| DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps | 可用 |
+| 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | ? steps | |
+| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | ? steps | |
+| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | ? steps | |
+| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | ? steps | |
+| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | ? steps | |
+| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | 36k steps | 只有平声 |
+| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | 21k steps | 只有平声 |
+| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps | |
+| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | |
+| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | |
+| 空(旅行者) | aether    | 日语男性少年             | 游戏内语音(原神)              |  | ? steps | |
+| 派蒙      | paimon     | 日语女性幼儿             | 游戏内语音(原神)              |  | ? steps | |
+| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | ? steps | |
 
 ⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
 ⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
@@ -98,7 +97,7 @@ see more details in `demo.ipynb` and `infer.py`
 
 ⚪ Train your own voice bank
 
-ℹ️ Note that **each acoustic model** is typically treated as **one timbre**, so training on a multi-speaker dataset might probably get a confused timbre (just see the `mix` vbank). **Hence I will try to develop global-conditioned multi-timbre acoustic model in the near future :)**
+ℹ️ Note that **each acoustic model** is typically treated as **one timbre**, so training on a multi-speaker dataset might probably get a confused timbre. **Hence I will try to develop global-conditioned multi-timbre acoustic model in the near future :)**
 
 1. prepare a folder containing \*.wav files (currently \*.mp3 not supported), aka. `wavpath`
 2. (optional) create a config file `<config>.json` under `configs` folder (refer to `configs\default.json` which is defaultly used)
@@ -111,7 +110,7 @@ see more details in `demo.ipynb` and `infer.py`
     - `make dirs VBANK=<vbank> WAVPATH=<wavpath>` creates necessary folder hierachy and soft-links
     - `make units VBANK=<vbank>` encodes wavforms to hubert's hidden-units
     - `make mels VBANK=<vbank>` transforms wavforms to log-mel spectrograms 
-    - `make train VBANK=<vbank> CONFIG=[config]` trains the acoustic model with paired data (unit, mel)
+    - `make train VBANK=<vbank> CONFIG=[config] RESUME=[resume]` trains the acoustic model with paired data (unit, mel)
     - `make train_resume VBANK=<vbank> CONFIG=[config]` resumes training on the saved `model-best.pt`
 5. you can launch TensorBoard summary by `make stats VBANK=<vbank>`
 

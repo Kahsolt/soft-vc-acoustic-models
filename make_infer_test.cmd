@@ -16,4 +16,3 @@ SET PYTHON_BIN=python
 %PYTHON_BIN% infer.py urushi test
 %PYTHON_BIN% infer.py lansi test
 %PYTHON_BIN% infer.py piano test
-%PYTHON_BIN% infer.py mix test

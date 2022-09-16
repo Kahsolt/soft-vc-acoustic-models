@@ -40,21 +40,18 @@ mels: _chk_param_vbank
 train: _chk_param_vbank _chk_cfgfile_exist
 ifeq ($(RESUME),)
 	$(PYTHON_BIN) train.py \
-	  $(DATA_PATH) \
-	  $(OUT_PATH) \
+	  $(VBANK) \
 	  --config $(CONFIG_PATH)
 else
 	$(PYTHON_BIN) train.py \
-	  $(DATA_PATH) \
-	  $(OUT_PATH) \
+	  $(VBANK) \
 	  --config $(CONFIG_PATH) \
 		--resume $(RESUME)
 endif
 
 train_resume: _chk_param_vbank _chk_cfgfile_exist
 	$(PYTHON_BIN) train.py \
-	  $(DATA_PATH) \
-	  $(OUT_PATH) \
+	  $(VBANK) \
 	  --config $(CONFIG_PATH) \
 	  --resume $(OUT_PATH)\model-best.pt
 

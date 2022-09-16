@@ -83,6 +83,8 @@ def load_checkpoint(
     acoustic.load_state_dict(checkpoint["acoustic-model"])
     if "optimizer" in checkpoint:
         optimizer.load_state_dict(checkpoint["optimizer"])
+        optimizer.defaults['capturable'] = True             # bugfix
+        optimizer.param_groups[0]['capturable'] = True      # bugfix
     step = checkpoint.get("step", 0)
     loss = checkpoint.get("loss", float("inf"))
     return step, loss

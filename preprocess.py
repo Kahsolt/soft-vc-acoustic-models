@@ -68,30 +68,14 @@ def preprocess_dataset(args):
   print(f"Found {len(lengths)} utterances, {frames} frames ({hours:.2f} hours)")
 
 
-def make_mix_dataset(args):
-  vbanks = os.listdir('data')
-  print(vbanks)
-
-  out_dp = os.path.join('data', 'mix')
-  os.makedirs(out_dp, exist_ok=True)
-  units_dp = os.path.join(out_dp, 'units')
-  os.makedirs(units_dp, exist_ok=True)
-  mels_dp = os.path.join(out_dp, 'mels')
-  os.makedirs(mels_dp, exist_ok=True)
-
-  raise NotImplementedError
-
-
 if __name__ == "__main__":
   parser = ArgumentParser()
   parser.add_argument("--encode", action='store_true')
   parser.add_argument("--melspec", action='store_true')
-  parser.add_argument("--make_mix", action='store_true')
   parser.add_argument("in_dir", metavar="in-dir", help="path to the dataset directory", type=Path)
   parser.add_argument("out_dir", metavar="out-dir", help="path to the output directory", type=Path)
   args = parser.parse_args()
 
   if   args.encode:      encode_dataset(args)
   elif args.melspec: preprocess_dataset(args)
-  elif args.make_mix:  make_mix_dataset(args)
-  else: raise('either --encode, --melspec or --make_mix must be set')
+  else: raise('either --encode, --melspec must be set')

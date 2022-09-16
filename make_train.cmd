@@ -25,9 +25,9 @@ IF NOT EXIST %CONFIG_PATH% (
 ECHO ^>^> [4/4] training acoustic model to "%OUT_PATH%" (use config "%CONFIG_PATH%")
 MKDIR %OUT_PATH%
 IF /I "%RESUME%"=="" (
-  %PYTHON_BIN% train.py %DATA_PATH% %OUT_PATH% --config %CONFIG_PATH%
+  %PYTHON_BIN% train.py %VBANK% --config %CONFIG_PATH%
 ) ELSE (
-  %PYTHON_BIN% train.py %DATA_PATH% %OUT_PATH% --config %CONFIG_PATH% --resume %RESUME%
+  %PYTHON_BIN% train.py %VBANK% --config %CONFIG_PATH% --resume %RESUME%
 )
 ECHO.
 IF ERRORLEVEL 1 EXIT /B -1

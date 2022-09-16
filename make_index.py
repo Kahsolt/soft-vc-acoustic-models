@@ -22,8 +22,6 @@ vbanks = [      # keep order
   'lansi',
   # instrumental
   'piano',
-  # misc
-  'mix',
 ]
 wav_fns = [      # keep order
   # speech
