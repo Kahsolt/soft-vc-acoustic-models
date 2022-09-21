@@ -15,19 +15,17 @@
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps | 可用 |
 | DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps | 可用 |
-| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps |  |
-| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |  |
-| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps |  |
-| 空(旅行者) | aether    | 日语男性少年             | 游戏内语音(原神)              |  | ? steps |  |
-| 派蒙      | paimon     | 日语女性幼儿             | 游戏内语音(原神)              |  | ? steps |  |
+| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
+| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
+| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
 | 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | 11k steps | 撕裂，局部平声 |
-| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | 34k steps |  |
-| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | 36k steps |  |
-| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | 37k steps |  |
-| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | 2k steps |  |
+| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | 34k steps | 高音撕裂 |
+| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | 36k steps | 高音撕裂 |
+| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | 37k steps | 勉强能听，几乎平声 |
+| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | 2k steps | 严重撕裂 |
 | 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | 36k steps | 完全平声 |
-| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | 21k steps | 完全平声 |
-| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | 32K steps |  |
+| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | 21k steps | 勉强能听，几乎平声 |
+| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | 32K steps | 怪 |
 
 ⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
 ⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
