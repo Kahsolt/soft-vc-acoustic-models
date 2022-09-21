@@ -32,11 +32,15 @@
 ⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
 ⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
 
-Model checkpoints could be downloaded from here: [TODO: upload to cloud disk](http://no.where.to.go).  
-We equally train each vbank for `40k` steps, but only save the best checkpoint.
+Pretained model checkpoints could be found here: [https://pan.quark.cn/s/f9ac2b933d7e](https://pan.quark.cn/s/f9ac2b933d7e).  
+We train each vbank for equally `40k` steps, but only the best checkpoint is published.
 
-ℹ️ **Note: not all vbanks are pleasing due to very very limited training data**, please check the audio samples in `index.html` for a comprehensive understanding.  
-For discussions on how many data is necessarily needed to train a satisfactory voice bank, refer to this repo: [soft-vc-acoustic-model-ablation-study](https://github.com/Kahsolt/soft-vc-acoustic-model-ablation-study)
+ℹ️ **Note: not all vbanks are pleasing due to very very limited, even pitch-non-variant training data**, 
+please check the audio samples in `index.html` for a comprehensive understanding.  
+For discussions on how many data is necessarily needed to train a satisfactory voice bank, 
+refer to this repo: [soft-vc-acoustic-model-ablation-study](https://github.com/Kahsolt/soft-vc-acoustic-model-ablation-study). 
+For discussions on how to build a timbre model from pitch-non-variant data only, 
+refer to this repo: [hubert-pitdyn](https://github.com/Kahsolt/hubert-pitdyn). 
 
 
 ### Quick Start
