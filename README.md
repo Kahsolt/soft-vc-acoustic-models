@@ -11,7 +11,7 @@
 
 ### Voice Banks
 
-| 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 检查点 | 听感状态 |
+| 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 最优检查点 | 听感状态 |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps | 可用 |
 | DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps | 可用 |
@@ -21,18 +21,19 @@
 | 空(旅行者) | aether    | 日语男性少年             | 游戏内语音(原神)              |  | ? steps |  |
 | 派蒙      | paimon     | 日语女性幼儿             | 游戏内语音(原神)              |  | ? steps |  |
 | 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | 11k steps | 撕裂，局部平声 |
-| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | ? steps |  |
-| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | ? steps |  |
-| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | ? steps |  |
-| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | ? steps |  |
+| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | 34k steps |  |
+| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | 36k steps |  |
+| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | 37k steps |  |
+| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | 2k steps |  |
 | 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | 36k steps | 完全平声 |
 | 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | 21k steps | 完全平声 |
-| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | ? steps |  |
+| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | 32K steps |  |
 
 ⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
 ⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
 
-Model checkpoints could be downloaded here: [TODO: upload to cloud disk](http://no.where.to.go)
+Model checkpoints could be downloaded from here: [TODO: upload to cloud disk](http://no.where.to.go).  
+We equally train each vbank for `40k` steps, but only save the best checkpoint.
 
 ℹ️ **Note: not all vbanks are pleasing due to very very limited training data**, please check the audio samples in `index.html` for a comprehensive understanding.  
 For discussions on how many data is necessarily needed to train a satisfactory voice bank, refer to this repo: [soft-vc-acoustic-model-ablation-study](https://github.com/Kahsolt/soft-vc-acoustic-model-ablation-study)
@@ -103,10 +104,11 @@ see more details in `demo.ipynb` and `infer.py`
 1. prepare a folder containing \*.wav files (currently \*.mp3 not supported), aka. `wavpath`
 2. (optional) create a config file `<config>.json` under `configs` folder (refer to `configs\default.json` which is defaultly used)
 3. install dependencies `pip install -r requirements.txt`
-4. run bundled script `make_vbank.cmd <vbank> <wavpath> [config]` (e.g. `make_vbank.cmd ljspeech C:\LJSpeech-1.1\wavs default`) for full preprocess & train routine, then wait for 2000 years over :laughing:
-  - or use the two-stage separated scripts, so that you could repeat and resume training procedure:
-    - `make_preprocess.cmd <vbank> <wavpath>`
-    - `make_train.cmd <vbank> [config] [resume]`
+4. use the two-stage separated scripts for preprocessing and training routine:
+  - preprocess with `make_preprocess.cmd <vbank> <wavpath>`
+    - e.g. `make_preprocess.cmd ljspeech C:\LJSpeech-1.1\wavs`
+  - train with `make_train.cmd <vbank> [config] [resume]`, and wait for 2000 years over :laughing:
+    - e.g. `make_preprocess.cmd ljspeech default`
   - or if you wants to perform step by step, refer to recipes in `Makefile`:
     - `make dirs VBANK=<vbank> WAVPATH=<wavpath>` creates necessary folder hierachy and soft-links
     - `make units VBANK=<vbank>` encodes wavforms to hubert's hidden-units
@@ -157,7 +159,6 @@ python infer.py vbank input [--out_path OUT_PATH]
 ├── infer.py                  // 合成代码 (Commandline API)
 ├── demo.ipynb                // 编程API示例 (Programmatic API)
 |── ...
-├── make_vbank.cmd            // 自定义语音库完整制作脚本 (全部，步骤1~3)
 ├── make_train.cmd            // 自定义语音库预处理脚本 (仅预处理，步骤1~3)
 ├── make_preprocess.cmd       // 自定义语音库训练脚本 (仅训练，步骤4)
 ├── Makefile                  // 自定义语音库任务脚本 (分步骤)

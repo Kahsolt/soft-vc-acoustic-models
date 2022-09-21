@@ -50,3 +50,5 @@ ECHO Usage: %0 ^<vbank^> ^<wavpath^>
 ECHO   vbank      voice bank name
 ECHO   wavpath    folder path containing *.wav files
 ECHO.
+
+:EOF

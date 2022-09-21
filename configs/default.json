@@ -1,7 +1,7 @@
 {
   "comment": "for standard dataset (~10h), average audio length ~10s",
   "batch_size": 32,
-  "steps": 80000,
+  "steps": 40000,
   "learning_rate": 4e-4,
   "betas": [0.8, 0.99],
   "weight_decay": 1e-5,

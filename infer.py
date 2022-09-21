@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
   parser = ArgumentParser()
   parser.add_argument("vbank", metavar='vbank', default='ljspeech', choices=VBANKS, help='voice bank name')
-  parser.add_argument("input", metavar='input', help='input file or folder for conversion')
+  parser.add_argument("--input", default='test', help='input file or folder for conversion')
   parser.add_argument("--out_path", default='gen', help='output folder for converted wavfiles')
   args = parser.parse_args()
 

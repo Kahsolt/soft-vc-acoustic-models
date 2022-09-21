@@ -23,6 +23,10 @@ logger = logging.getLogger(__name__)
 
 
 def train(rank, world_size, args, hp):
+    if torch.cuda.is_available():
+        torch.backends.cudnn.enabled = True
+        torch.backends.cudnn.benchmark = True
+
     dist.init_process_group(hp.BACKEND, rank=rank, world_size=world_size, init_method=hp.INIT_METHOD)
 
     ####################################################################################
@@ -56,7 +60,6 @@ def train(rank, world_size, args, hp):
         lr=hp.LEARNING_RATE,
         betas=hp.BETAS,
         weight_decay=hp.WEIGHT_DECAY,
-        capturable=True,
     )
 
     ####################################################################################
@@ -145,10 +148,9 @@ def train(rank, world_size, args, hp):
     epoch_loss      = Metric()
     validation_loss = Metric()
 
+    acoustic.train()
     for epoch in range(start_epoch, n_epochs + 1):
         train_sampler.set_epoch(epoch)
-
-        acoustic.train()
         epoch_loss.reset()
 
         for mels, mels_lengths, units, units_lengths in train_loader:
@@ -180,6 +182,7 @@ def train(rank, world_size, args, hp):
             epoch_loss  .update(loss.item())
 
             if rank == 0 and global_step % hp.LOG_INTERVAL == 0:
+                logger.info(f">> [Step {global_step}] loss: {average_loss.value}")
                 writer.add_scalar("train/loss", average_loss.value, global_step)
                 average_loss.reset()
 
@@ -227,7 +230,7 @@ def train(rank, world_size, args, hp):
 
                     if rank == 0:
                         save_checkpoint(
-                            log_path=args.log_path,
+                            checkpoint_dir=args.log_path,
                             acoustic=acoustic,
                             optimizer=optimizer,
                             step=global_step,

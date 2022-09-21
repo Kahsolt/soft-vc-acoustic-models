@@ -6,13 +6,13 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 SET PYTHON_BIN=python
 
-%PYTHON_BIN% infer.py ljspeech test
-%PYTHON_BIN% infer.py databaker test
-%PYTHON_BIN% infer.py sou test
-%PYTHON_BIN% infer.py len test
-%PYTHON_BIN% infer.py lemi test
-%PYTHON_BIN% infer.py hana test
-%PYTHON_BIN% infer.py ema test
-%PYTHON_BIN% infer.py urushi test
-%PYTHON_BIN% infer.py lansi test
-%PYTHON_BIN% infer.py piano test
+%PYTHON_BIN% infer.py ljspeech
+%PYTHON_BIN% infer.py databaker
+%PYTHON_BIN% infer.py sou
+%PYTHON_BIN% infer.py len
+%PYTHON_BIN% infer.py lemi
+%PYTHON_BIN% infer.py hana
+%PYTHON_BIN% infer.py ema
+%PYTHON_BIN% infer.py urushi
+%PYTHON_BIN% infer.py lansi
+%PYTHON_BIN% infer.py piano

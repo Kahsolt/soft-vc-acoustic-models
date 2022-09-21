@@ -33,7 +33,7 @@ wav_fns = [      # keep order
   'common_voice_ab_19904194.wav',     # Mozilla CommonVoice
   # vocal (recllst)
   '_べべぶぼべぼぼ.wav',                # UTAU - ema
-  'D#4_しゅしゅししょしゃしょし.wav',    # UTAU - hana
+  'D4_しゅしゅししょしゃしょし.wav',     # UTAU - hana
   '_きゅんきゅきゅきぇきゅきょきゅ.wav',  # UTAU - urushi
   'kan_kan_kan.wav',                   # UTAU - lansi2
   # vocal (song)

@@ -43,3 +43,5 @@ ECHO   vbank      voice bank name
 ECHO   config     config name (default: "default")
 ECHO   resume     checkpoint file path to resume from
 ECHO.
+
+:EOF
