@@ -13,7 +13,7 @@ IF "%VBANK%"=="" GOTO HELP
 IF "%CONFIG%"=="" SET CONFIG=default
 
 SET DATA_PATH=data\%VBANK%
-SET OUT_PATH=out\%VBANK%
+SET LOG_PATH=log\%VBANK%
 SET CONFIG_PATH=configs\%CONFIG%.json
 
 IF NOT EXIST %CONFIG_PATH% (
@@ -22,8 +22,8 @@ IF NOT EXIST %CONFIG_PATH% (
   EXIT /B -1
 )
 
-ECHO ^>^> [4/4] training acoustic model to "%OUT_PATH%" (use config "%CONFIG_PATH%")
-MKDIR %OUT_PATH%
+ECHO ^>^> [4/4] training acoustic model to "%LOG_PATH%" (use config "%CONFIG_PATH%")
+MKDIR %LOG_PATH%
 IF /I "%RESUME%"=="" (
   %PYTHON_BIN% train.py %VBANK% --config %CONFIG_PATH%
 ) ELSE (

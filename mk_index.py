@@ -2,7 +2,6 @@
 # Author: Armit
 # Create Time: 2022/09/14 
 
-# keep in order
 import os
 
 src_dp = 'test'
@@ -12,6 +11,13 @@ vbanks = [      # keep order
   # speech
   'ljspeech',
   'databaker',
+  # speech (ingame)
+  'shaw',
+  'click',
+  'vermeil',
+  'aak',
+  'mizuki',
+  'luoxiaohei',
   # vocal
   'sou',
   'len',

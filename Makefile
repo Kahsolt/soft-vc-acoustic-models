@@ -1,7 +1,7 @@
 PYTHON_BIN=python
 
 DATA_PATH=data\$(VBANK)
-OUT_PATH=out\$(VBANK)
+LOG_PATH=log\$(VBANK)
 ifeq ($(CONFIG),)
 	CONFIG_PATH=configs\default.json
 else
@@ -23,7 +23,7 @@ dirs: _chk_param_vbank _chk_wavpath_exist
 	ln -s $(WAVPATH) $(DATA_PATH)\wavs
 	mkdir $(DATA_PATH)\units
 	mkdir $(DATA_PATH)\mels
-	mkdir $(OUT_PATH)
+	mkdir $(LOG_PATH)
 
 units: _chk_param_vbank
 	$(PYTHON_BIN) preprocess.py \
@@ -51,10 +51,10 @@ train_resume: _chk_param_vbank _chk_cfgfile_exist
 	$(PYTHON_BIN) train.py \
 	  $(VBANK) \
 	  --config $(CONFIG_PATH) \
-	  --resume $(OUT_PATH)\model-best.pt
+	  --resume $(LOG_PATH)\model-best.pt
 
 stats: _chk_param_vbank
-	tensorboard --logdir out\$(VBANK)\logs
+	tensorboard --logdir log\$(VBANK)\logs
 
 
 _chk_param_vbank:

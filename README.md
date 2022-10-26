@@ -13,19 +13,22 @@
 
 | 音色 | 声库名(vbank) | 说明 | 语料 | 语料时长 | 最优检查点 | 听感状态 |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| LJSpeech  | ljspeech  | 英语女性成人             | LJSpeech公开数据集            | 24h | 32k steps | 可用 |
-| DataBaker | databaker | 汉语普通话女性成人        | DataBaker公开数据集           | 10h | 25k steps | 可用 |
-| 阿        | aak        | 日语男性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
-| 卡达      | click      | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
-| 红云      | vermeil    | 日语女性少年             | 游戏内语音(明日方舟)          |  | ? steps | 别急，还在做 |
-| 爽        | sou       | 日语男性少年              | 歌声提取（空詩音レミ的中之人） | 0.243h | 11k steps | 撕裂，局部平声 |
-| 空詩音レミ | lemi      | 日语男性少年 (DeepVocal) | 歌声合成导出                  | 0.351h | 34k steps | 高音撕裂 |
-| 鏡音レン   | len       | 日语男性少年 (Vocaloid)  | 歌声合成导出                  | 0.575h | 36k steps | 高音撕裂 |
-| はなinit  | hana       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 1.672h | 37k steps | 勉强能听，几乎平声 |
-| 旭音エマ   | ema       | 日语中性少年 (UTAU)      | 歌声合成导出+声库录音         | 0.433h | 2k steps | 严重撕裂 |
-| 狽音ウルシ | urushi    | 日语男性少年 (UTAU)       | 声库录音                    | 0.190h | 36k steps | 完全平声 |
-| 兰斯      | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h | 21k steps | 勉强能听，几乎平声 |
-| 钢琴      | piano      | 钢琴和弦乐               | 钢琴曲和少量弦乐协奏曲        | 0.800h | 32K steps | 怪 |
+| LJSpeech   | ljspeech   | 英语女性成人              | LJSpeech公开数据集           | 24h    |  32k steps | 可用 |
+| DataBaker  | databaker  | 汉语普通话女性成人        | DataBaker公开数据集          | 10h    |  25k steps | 可用 |
+| 阿消       | 500        | 日语女性少年              | 游戏内语音(明日方舟)         |        | 500 steps | 别急，还在做 |
+| 卡达       | click      | 日语女性少年              | 游戏内语音(明日方舟)         |        | 3250 steps | 别急，还在做 |
+| 红云       | vermeil    | 日语女性少年              | 游戏内语音(明日方舟)         |        | 5000 steps | 别急，还在做 |
+| 阿         | aak        | 日语男性少年              | 游戏内语音(明日方舟)         |        | 2250 steps | 别急，还在做 |
+| 水月       | mizuki     | 日语男性少年              | 游戏内语音(明日方舟)         |        | 4750 steps | 别急，还在做 |
+| 罗小黑     | luoxiaohei | 日语男性少年              | 游戏内语音(明日方舟)         |        | 5000 steps | 别急，还在做 |
+| 爽         | sou        | 日语男性少年              | 歌声提取(空詩音レミ的中之人) | 0.243h |  11k steps | 撕裂，局部平声 |
+| 空詩音レミ | lemi       | 日语男性少年 (DeepVocal)  | 歌声合成导出                 | 0.351h |  34k steps | 高音撕裂 |
+| 鏡音レン   | len        | 日语男性少年 (Vocaloid)   | 歌声合成导出                 | 0.575h |  36k steps | 高音撕裂 |
+| はなinit   | hana       | 日语中性少年 (UTAU)       | 歌声合成导出+声库录音        | 1.672h |  37k steps | 勉强能听，几乎平声 |
+| 旭音エマ   | ema        | 日语中性少年 (UTAU)       | 歌声合成导出+声库录音        | 0.433h |   2k steps | 严重撕裂 |
+| 狽音ウルシ | urushi     | 日语男性少年 (UTAU)       | 声库录音                     | 0.190h |  36k steps | 完全平声 |
+| 兰斯       | lansi      | 汉语普通话男性少年 (UTAU) | 声库录音(+数据增强)          | 5.417h |  21k steps | 勉强能听，几乎平声 |
+| 钢琴       | piano      | 钢琴和弦乐                | 钢琴曲和少量弦乐协奏曲       | 0.800h |  32K steps | 怪 |
 
 ⚠️ **自然人声音受到当地法律保护，应仅出于个人学习、艺术欣赏、课堂教学或者科学研究等目的作必要使用。**  
 ⚠️ **The voice of natural persons is protected by local laws and shall be used ONLY for necessary purposes such as personal study, artistic appreciation, teaching or scientific research.**  
@@ -75,7 +78,7 @@ hifigan  = torch.hub.load("bshall/hifigan:main", "hifigan_hubert_soft").to(devic
 
 # load checkpoint
 vbank = 'ljspeech'		           # or 'hana', etc..
-ckpt_fp = f'out/{vbank}/model-best.pt'
+ckpt_fp = f'log/{vbank}/model-best.pt'
 ckpt = torch.load(ckpt_fp, map_location=device)
 consume_prefix_in_state_dict_if_present(ckpt["acoustic-model"], "module.")
 acoustic.load_state_dict(ckpt["acoustic-model"])
@@ -117,7 +120,7 @@ see more details in `demo.ipynb` and `infer.py`
     - `make mels VBANK=<vbank>` transforms wavforms to log-mel spectrograms 
     - `make train VBANK=<vbank> CONFIG=[config] RESUME=[resume]` trains the acoustic model with paired data (unit, mel)
     - `make train_resume VBANK=<vbank> CONFIG=[config]` resumes training on the saved `model-best.pt`
-  - NOTE: preprocessed features are generated in `data\<vbank>\*`, while model checkpoints are saved in `out\<vbank>`
+  - NOTE: preprocessed features are generated in `data\<vbank>\*`, while model checkpoints are saved in `log\<vbank>`
 5. you can launch TensorBoard summary by `make stats VBANK=<vbank>`
 6. once train finished, run `python infer.py <vbank> <input>` (e.g. `python infer.py ljspeech test`) to generate converted wavfiles for folder `<input>`
 
@@ -125,12 +128,12 @@ If you have neither `make.exe` nor `cmd.exe`, you can directly use the python sc
 
 ```cmd
 # Assure you have created the directory hierachy:
-# mkdir data/<vbank> data/<vbank>/units data/<vbank>/mels out
+# mkdir data/<vbank> data/<vbank>/units data/<vbank>/mels log
 # mklink /J data/<vbank>/wavs path/to/vbank/wavpath
 
 python preprocess.py vbank <--encode|melspec>
 python train.py vbank --config CONFIG [--resume RESUME]
-python infer.py vbank input [--out_path OUT_PATH]
+python infer.py vbank input [--log_path LOG_PATH]
 ```
 
 
@@ -150,7 +153,7 @@ python infer.py vbank input [--out_path OUT_PATH]
 │   │   ├── units/            // preprocess产生的HuBERT特征
 │   │   └── mels/             // preprocess产生的Mel谱特征
 │   └── ...
-├── out/                      // 模型权重保存点 + 日志统计
+├── log/                      // 模型权重保存点 + 日志统计
 │   ├── <vbank>/
 │   │   ├── logs/             // 日志(`*.log`) + TFBoard(`events.out.tfevents.*`)
 │   │   ├── model-best.pt     // 最优检查点

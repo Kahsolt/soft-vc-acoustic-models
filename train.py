@@ -267,7 +267,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     args.data_path = Path('data') / args.vbank
-    args.log_path  = Path('out')  / args.vbank
+    args.log_path  = Path('log')  / args.vbank
 
     with open(args.config, 'r', encoding='utf-8') as fh:
         config = json.load(fh)

@@ -15,7 +15,7 @@ ECHO ^>^> [0/4] making voicebank `%VBANK%` from "%WAVPATH%"
 ECHO.
 
 SET DATA_PATH=data\%VBANK%
-SET OUT_PATH=out\%VBANK%
+SET OUT_PATH=log\%VBANK%
 IF NOT EXIST %WAVPATH% (
   ECHO ^<^< [Error] wavpath "%WAVPATH%" does not exist!
   ECHO.

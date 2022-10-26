@@ -1,15 +1,16 @@
-# project meta
+# meta
 .vscode
+__pycache__/
+
 # wav & processed files
 data/
+
 # model chpt & logs
-out/
-# my todolist
-TODO.txt
+log/
+converted.wav
 
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
 *$py.class
 
