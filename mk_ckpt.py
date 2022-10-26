@@ -37,8 +37,8 @@ def show(args):
 if __name__ == '__main__':
   parser = ArgumentParser()
   parser.add_argument('--clean', action='store_true', help='clean all midway ckpt files, use with -f')
-  parser.add_argument('-f', action='store_true', help='actually do file remove')
-  parser.add_argument('--show')
+  parser.add_argument('-f',      action='store_true', help='actually do file remove')
+  parser.add_argument('--show',  action='store_true')
   args = parser.parse_args()
 
   if args.clean: clean(args)

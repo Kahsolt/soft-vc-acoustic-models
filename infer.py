@@ -29,9 +29,10 @@ def convert(args):
   for vbank in vbanks:
     print(f'>> [Generate] for vbank {vbank}')
 
-    ckpt = torch.load(f'{CKPT_PATH}/{vbank}/model-best.pt', map_location=device)
-    consume_prefix_in_state_dict_if_present(ckpt["acoustic-model"], "module.")
-    acoustic.load_state_dict(ckpt["acoustic-model"])
+    if vbank != 'default':
+      ckpt = torch.load(f'{CKPT_PATH}/{vbank}/model-best.pt', map_location=device)
+      consume_prefix_in_state_dict_if_present(ckpt["acoustic-model"], "module.")
+      acoustic.load_state_dict(ckpt["acoustic-model"])
 
     if os.path.isfile(args.input):
       wav_fps = [args.input]
@@ -63,10 +64,10 @@ def convert(args):
 
 
 if __name__ == '__main__':
-  VBANKS = os.listdir(CKPT_PATH) + ['*']   # where ckpt locates
+  VBANKS = os.listdir(CKPT_PATH) + ['*', 'default']   # where ckpt locates
 
   parser = ArgumentParser()
-  parser.add_argument("vbank", metavar='vbank', default='*', choices=VBANKS, help='voice bank name, use `*` for all')
+  parser.add_argument("vbank", metavar='vbank', default='*', choices=VBANKS, help='voice bank name; use `*` for all local, use `default` for original pretrained weights from soft-vc repo')
   parser.add_argument("--input", default='test', help='input file or folder for conversion')
   parser.add_argument("--out_path", default='gen', help='output folder for converted wavfiles')
   args = parser.parse_args()

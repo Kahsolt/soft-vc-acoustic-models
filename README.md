@@ -164,15 +164,15 @@ python infer.py vbank input [--log_path LOG_PATH]
 ├── infer.py                  // 合成代码 (Commandline API)
 ├── demo.ipynb                // 编程API示例 (Programmatic API)
 |── ...
-├── make_train.cmd            // 自定义语音库预处理脚本 (仅预处理，步骤1~3)
-├── make_preprocess.cmd       // 自定义语音库训练脚本 (仅训练，步骤4)
+├── mk_train.cmd              // 自定义语音库预处理脚本 (仅预处理，步骤1~3)
+├── mk_preprocess.cmd         // 自定义语音库训练脚本 (仅训练，步骤4)
 ├── Makefile                  // 自定义语音库任务脚本 (分步骤)
 |── ...
 ├── test/                     // demo源数据集
 ├── gen/                      // demo生成数据集 (demo源数据集在demo声库上产生的转换结果)
 ├── index.html                // demo列表页面
-├── make_index.py             // demo页面生成脚本 (产生index.html)
-└── make_infer_test.cmd       // demo生成数据集生成脚本 (产生gen/)
+├── mk_index.py               // demo页面生成脚本 (产生index.html)
+└── mk_infer_test.cmd         // demo生成数据集生成脚本 (产生gen/)
 ```
 
 ℹ️ These developed scripts and tools are targeted mainly for **Windows** platform, if you work on Linux or Mac, you possibly need to modify on your own :(

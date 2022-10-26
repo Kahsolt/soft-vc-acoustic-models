@@ -9,6 +9,7 @@ dst_dp = 'gen'
 html_fn = 'index.html'
 vbanks = [      # keep order
   # speech
+  'default',      # original pretrained on LJSpeech
   'ljspeech',
   'databaker',
   # speech (ingame)
